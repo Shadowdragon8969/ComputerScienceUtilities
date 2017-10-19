@@ -1,2 +1,2 @@
 # ComputerScienceUtilities
-Some code that my classmates can use
+Classes and libraries that I have created with C#
