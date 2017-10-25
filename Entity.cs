@@ -15,12 +15,14 @@ namespace ComputerScienceUtilities
 
         private String uuid;
         private bool moveable = true;
+        private bool gravity = true;
         private PictureBox box;
         private EntityLocation el;
         private bool dead = false;
         private bool spawned = false;
         private bool textured = false;
         private String texturePath;
+        private World world;
 
         public Entity(PictureBox box) {
             this.box = box;
@@ -50,6 +52,7 @@ namespace ComputerScienceUtilities
             playerWorld.put(this, l.getWorld());
             el = new EntityLocation(l.getWorld(), l.getX(), l.getY(), this);
             spawned = true;
+            world = l.getWorld();
         }
 
         public EntityLocation getLocation() {
@@ -62,11 +65,18 @@ namespace ComputerScienceUtilities
             }
         }
 
+        public bool isOnGround() {
+            if (!spawned) return true;
+            if (box.Location.Y + box.Size.Height >= world.getDepth()) return true;
+            return false;
+        }
+
         public void applyVectors() {
-            if (el.getVectorY().getForce() == 0) el.getVectorY().setSpeed(0);
+            if (el.getVectorY().getForce() == 0 && isOnGround()) el.getVectorY().setSpeed(0);
             if (el.getVectorX().getForce() == 0) el.getVectorX().setSpeed(0);
             if (el.getVectorY().getForce() > 0) el.getVectorY().setForce(el.getVectorY().getForce() - 1);
             if (el.getVectorX().getForce() > 0) el.getVectorX().setForce(el.getVectorX().getForce() - 1);
+            if (!isOnGround() && el.getVectorY().getForce() <= 0) el.getVectorY().setSpeed(world.getGravity());
             box.Location = new Point(box.Location.X + el.getVectorX().getSpeed(), box.Location.Y + el.getVectorY().getSpeed());
         }
 
