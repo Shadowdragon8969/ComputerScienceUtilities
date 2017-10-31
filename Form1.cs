@@ -12,6 +12,9 @@ namespace ComputerScienceUtilities
 {
     public partial class Form1 : Form
     {
+    
+        // This is an example class meant to show how to use this game engine and how it works
+        
         // The timer that we will use to create repeating events
         Timer t = new Timer();
         // Your computers instance of the game
@@ -24,6 +27,11 @@ namespace ComputerScienceUtilities
         public Form1()
         {
             InitializeComponent();
+            Client.addDefault("yes");
+            Client.addDefault("no");
+            Client.addDefault("maybe");
+            Client.addDefault("so");
+            client.registerClient();
             // This section makes sure that the timer fires every 20 milliseconds
             t.Tick += new EventHandler(worldTickElapsed);
             t.Interval = 20;
