@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace ComputerScienceUtilities
         private int lastAttack = 0;
         private Label l;
 
-        public EntityLiving(PictureBox box, int health, int maxhealth, String name, Label label) : base(box)
+        public EntityLiving(PictureBox box, int health, int maxhealth, String name, Label label, Color c) : base(box, c)
         {
             this.l = label;
             this.hp = health;
@@ -103,7 +104,7 @@ namespace ComputerScienceUtilities
             if (lastAttack > 0) lastAttack--;
             if (lastAttack == 0)
             {
-                getBox().BackColor = System.Drawing.Color.Orange;
+                getBox().BackColor = getBaseColor();
             }
             l.Location = new System.Drawing.Point(getBox().Location.X, getBox().Location.Y - 20);
             l.Text = name + "\n" + hp + "/" + maxhp;
