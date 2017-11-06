@@ -18,8 +18,13 @@ namespace ComputerScienceUtilities
         private List<Keys> i = new List<Keys>();
         private String s;
         private static List<String> f = new List<String>();
-
-
+        private static EntityPlayer cpr;
+        // KEYBINDINGS ////////////////////////////////
+        public KeyBinding left = new KeyBinding(Keys.Left, KeyAction.MOVEMENT_LEFT);
+        public KeyBinding right = new KeyBinding(Keys.Right, KeyAction.MOVEMENT_RIGHT);
+        public KeyBinding up = new KeyBinding(Keys.Up, KeyAction.MOVEMENT_UP);
+        public KeyBinding util = new KeyBinding(Keys.F, KeyAction.UTIL_1);
+        ///////////////////////////////////////////////
         /**
          * 
          * Developer's Note:
@@ -40,6 +45,21 @@ namespace ComputerScienceUtilities
             this.t = o1.Open(FileMode.Open);
             this.s = yd_97;
             o = this;
+        }
+
+        public EntityPlayer getClientPlayer()
+        {
+            return cpr;
+        }
+
+        public List<Keys> getKeysDown()
+        {
+            return i;
+        }
+
+        public void setClientPlayer(EntityPlayer ep)
+        {
+            cpr = ep;
         }
 
         public static void setDefaults(List<String> du_23)
@@ -78,8 +98,11 @@ namespace ComputerScienceUtilities
             }
         }
 
-        public void registerClient()
+        public void registerClient(Form f)
         {
+            f.KeyPreview = true;
+            f.KeyDown += new KeyEventHandler(func_11892);
+            f.KeyUp += new KeyEventHandler(func_11893);
             if (j) {
                 foreach (String str in getDefualts())
                 {
@@ -132,6 +155,21 @@ namespace ComputerScienceUtilities
         public bool isKeyPressed(Keys key) {
             if (i.Contains(key)) return true;
             return false;
+        }
+
+        private void func_11892(object sender, KeyEventArgs e)
+        {
+            pressKey(e.KeyCode);
+        }
+
+        private void func_11893(object sender, KeyEventArgs e)
+        {
+            releaseKey(e.KeyCode);
+        }
+
+        private void func_11895()
+        {
+            cpr.jump();
         }
 
     }
