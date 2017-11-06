@@ -23,10 +23,15 @@ namespace ComputerScienceUtilities
         private bool textured = false;
         private String texturePath;
         private World world;
+        private Color baseBackColor;
 
-        public Entity(PictureBox box) {
+        public Entity(PictureBox box, Color c) {
             this.box = box;
-            
+            baseBackColor = c;
+        }
+
+        public Color getBaseColor() {
+            return baseBackColor;
         }
 
         public void setTexture(String path) {
