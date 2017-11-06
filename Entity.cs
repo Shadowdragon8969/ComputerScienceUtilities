@@ -10,7 +10,7 @@ namespace ComputerScienceUtilities
 {
     public class Entity
     {
-
+        private static List<Entity> registeredEntities = new List<Entity>();
         private static HashMap playerWorld = new HashMap();
 
         private String uuid;
@@ -53,6 +53,22 @@ namespace ComputerScienceUtilities
             el = new EntityLocation(l.getWorld(), l.getX(), l.getY(), this);
             spawned = true;
             world = l.getWorld();
+            dead = false;
+            registeredEntities.Add(this);
+        }
+
+        public void remove() {
+            box.Visible = false;
+            dead = true;
+            moveable = false;
+        }
+
+        public static List<Entity> getRegisteredEntities() {
+            return registeredEntities;
+        }
+
+        public bool isDead() {
+            return dead;
         }
 
         public EntityLocation getLocation() {
@@ -71,13 +87,27 @@ namespace ComputerScienceUtilities
             return false;
         }
 
+        public int distance(Entity e)
+        {
+            int factor = getLocation().getX() - e.getLocation().getX();
+            if (factor < 0) factor = factor * -1;
+            return factor;
+        }
+
+        public PictureBox getBox()
+        {
+            return box;
+        }
+
         public void applyVectors() {
+            if (!moveable) return;
             if (el.getVectorY().getForce() == 0 && isOnGround()) el.getVectorY().setSpeed(0);
             if (el.getVectorX().getForce() == 0) el.getVectorX().setSpeed(0);
             if (el.getVectorY().getForce() > 0) el.getVectorY().setForce(el.getVectorY().getForce() - 1);
             if (el.getVectorX().getForce() > 0) el.getVectorX().setForce(el.getVectorX().getForce() - 1);
             if (!isOnGround() && el.getVectorY().getForce() <= 0) el.getVectorY().setSpeed(world.getGravity());
             box.Location = new Point(box.Location.X + el.getVectorX().getSpeed(), box.Location.Y + el.getVectorY().getSpeed());
+            el = new EntityLocation(world, box.Location.X, box.Location.Y, this);
         }
 
     }
