@@ -40,7 +40,7 @@ namespace ComputerScienceUtilities
             Client.addDefault("no");
             Client.addDefault("maybe");
             Client.addDefault("so");
-            e = new EntityPlayer(pictureBox1, 10, 10, "Player1", label2);
+            e = new EntityPlayer(pictureBox1, 10, 10, "Player1", label2, Color.Orange);
             e.setJumpHeight(50);
             e.setMovementSpeed(20);
             client.registerClient(this);
@@ -49,7 +49,7 @@ namespace ComputerScienceUtilities
             
             // This sets the PictureBox that will be used as the player
             
-            enemy = new EntityLiving(pictureBox3, 10, 10, "Bad Guy", label3);
+            enemy = new EntityLiving(pictureBox3, 10, 10, "Bad Guy", label3, Color.Blue);
             enemy.setHostile(true);
             enemy.spawnAtLocation(new Location(w, 150, 50));
             // This spawns the player at a certain location on the world
@@ -57,6 +57,5 @@ namespace ComputerScienceUtilities
             enemy.setAttackDamage(1);
             label1.Text = e.distance(enemy) + "";
         }
-
     }
 }
