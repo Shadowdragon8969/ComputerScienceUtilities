@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace ComputerScienceUtilities
     public class EntityPlayer : EntityLiving
     {
 
-        public EntityPlayer(PictureBox box, int health, int maxhealth, string name, Label label) : base(box, health, maxhealth, name, label)
+        public EntityPlayer(PictureBox box, int health, int maxhealth, string name, Label label, Color c) : base(box, health, maxhealth, name, label, c)
         {
             setHostile(false);
         }
