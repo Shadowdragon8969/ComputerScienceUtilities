@@ -24,8 +24,21 @@ namespace ComputerScienceUtilities
             this.worldBox = worldBox;
             this.depth = depth;
             worldBox.Size = form.Size;
+            worldBox.Location = new System.Drawing.Point(0, 0);
             this.gravity = gravity;
             WorldServer.registerWorld(this);
+            this.f = form;
+        }
+
+        public World(PictureBox worldBox, Form form, int depth, int gravity)
+        {
+            this.worldBox = worldBox;
+            this.depth = depth;
+            worldBox.Size = form.Size;
+            worldBox.Location = new System.Drawing.Point(0, 0);
+            this.gravity = gravity;
+            WorldServer.registerWorld(this);
+            this.f = form;
         }
 
         public int getGravity() {
@@ -50,6 +63,21 @@ namespace ComputerScienceUtilities
                     w.removeResident(e);
             }
             residents.Add(e);
+        }
+
+        public void resizeToBasicScreenDepth()
+        {
+            if (f.Size == Screen.PrimaryScreen.Bounds.Size)
+            {
+                int dep = f.Size.Height - (f.Size.Height / 10);
+                depth = dep;
+            }
+        }
+
+        public static int getResizeToScreenDepth(Form f)
+        {
+            int dep = f.Size.Height - (f.Size.Height / 4);
+            return dep;
         }
 
     }
