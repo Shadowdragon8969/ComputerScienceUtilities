@@ -25,6 +25,9 @@ namespace ComputerScienceUtilities
         public Form1()
         {
             InitializeComponent();
+            // Resize the form to fit the full screen
+            DisplaySettings ds = new DisplaySettings(this);
+            ds.resizeDisplayToScreenSize();
             ///////////////////////////////////////////////////////////////////////
             /* This sets the world properties
              * 'pictureBox2' is the PictureBox that will be used as the background
@@ -34,26 +37,24 @@ namespace ComputerScienceUtilities
              * '3' is gravity level that will push any entities that are effected by gravity
              * to the ground, the higher the number, the faster they fall!
             */
-            w = new World(pictureBox2, this, "", 200, 3);
-
-            Client.addDefault("yes");
-            Client.addDefault("no");
-            Client.addDefault("maybe");
-            Client.addDefault("so");
+            w = new World(pictureBox2, this, "", World.getResizeToScreenDepth(this), 20);
+            Client.addDefault("true");
             e = new EntityPlayer(pictureBox1, 10, 10, "Player1", label2, Color.Orange);
             e.setJumpHeight(50);
-            e.setMovementSpeed(20);
+            e.setJumpForce(50000);
+            e.setMovementSpeed(15);
+            e.setAttackDamage(2);
             client.registerClient(this);
             client.setClientPlayer(e);
             WorldServer.initWorldServer(client, e);
-            
+            WorldServer.setGameTick(30);
             // This sets the PictureBox that will be used as the player
-            
+
             enemy = new EntityLiving(pictureBox3, 10, 10, "Bad Guy", label3, Color.Blue);
             enemy.setHostile(true);
             enemy.spawnAtLocation(new Location(w, 150, 50));
             // This spawns the player at a certain location on the world
-            e.spawnAtLocation(new Location(w, 50, 50));
+            e.spawnAtLocation(new Location(w, 50, World.getResizeToScreenDepth(this) - e.getBox().Height));
             enemy.setAttackDamage(1);
             label1.Text = e.distance(enemy) + "";
         }
