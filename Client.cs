@@ -169,7 +169,7 @@ namespace ComputerScienceUtilities
 
         private void func_11895()
         {
-            cpr.jump();
+            cpr.jump(8);
         }
 
     }
