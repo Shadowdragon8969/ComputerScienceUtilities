@@ -24,6 +24,11 @@ namespace ComputerScienceUtilities
             return worlds;
         }
 
+        public static void setGameTick(int tick)
+        {
+            t.Interval = tick;
+        }
+
         public static void initWorldServer(Client c, EntityPlayer enp)
         {
             cl = c;
@@ -49,6 +54,7 @@ namespace ComputerScienceUtilities
                 {
                     EntityPlayer ep = (EntityPlayer)ent;
                     ep.aiMovement();
+                    ep.applyAttack();
                 }
             }
             if (cl.getKeysDown().Contains(cl.left.getKey())) {
@@ -66,7 +72,11 @@ namespace ComputerScienceUtilities
             }
             if (cl.getKeysDown().Contains(cl.up.getKey()))
             {
-                ep.jump();
+                ep.jump(4);
+            }
+            if (cl.getKeysDown().Contains(cl.util.getKey()))
+            {
+                ep.beginAttack(200);
             }
             t.Start();
         }
