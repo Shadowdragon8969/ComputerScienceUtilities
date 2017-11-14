@@ -18,7 +18,7 @@ namespace FileEditors
         private FileStream t;
         private String s;
         public bool j = false;
-        
+
 
         public FileEditor(String folderDirectory, String filename)
         {
@@ -36,11 +36,13 @@ namespace FileEditors
                 s = dataPath;
                 o1 = clientData;
                 t = o1.Open(FileMode.Open);
+                closeStream();
                 j = true;
             }
             s = dataPath;
             o1 = clientData;
             t = o1.Open(FileMode.Open);
+            t.Close();
         }
 
         public void func_10520(String a4_1)
@@ -49,6 +51,12 @@ namespace FileEditors
             List<String> sts = File.ReadAllLines(s).ToList();
             sts.Add(a4_1);
             File.WriteAllLines(s, sts.ToArray());
+            t.Close();
+        }
+
+        public void closeStream()
+        {
+            t.Close();
         }
 
         public void func_10419(String d0_96, int tj_42)
@@ -62,6 +70,7 @@ namespace FileEditors
                 sts.SetValue(d0_96, skip);
                 File.WriteAllLines(s, sts);
             }
+            t.Close();
         }
 
         public void func_10308()
@@ -76,13 +85,16 @@ namespace FileEditors
         {
             t.Close();
             String[] sts = File.ReadAllLines(s);
+            t.Close();
             return (String)sts.GetValue(top_po - 1);
         }
 
         public String[] getAllLines()
         {
             t.Close();
-            return File.ReadAllLines(s);
+            String[] sts = File.ReadAllLines(s);
+            t.Close();
+            return sts;
         }
     }
 }
