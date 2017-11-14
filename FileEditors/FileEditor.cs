@@ -17,6 +17,7 @@ namespace FileEditors
         private FileInfo o1;
         private FileStream t;
         private String s;
+        public bool j = false;
         
 
         public FileEditor(String folderDirectory, String filename)
@@ -35,6 +36,7 @@ namespace FileEditors
                 s = dataPath;
                 o1 = clientData;
                 t = o1.Open(FileMode.Open);
+                j = true;
             }
             s = dataPath;
             o1 = clientData;
