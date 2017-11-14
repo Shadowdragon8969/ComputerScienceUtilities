@@ -27,7 +27,7 @@ namespace FileEditors
             {
                 System.IO.Directory.CreateDirectory(desktop + "\\" + folderDirectory);
             }
-            String dataPath = desktop + "\\" + folderDirectory "\\" + filename;
+            String dataPath = desktop + "\\" + folderDirectory + "\\" + filename;
             FileInfo clientData = new FileInfo(dataPath);
             if (!clientData.Exists)
             {
