@@ -73,14 +73,6 @@ namespace FileEditors
             t.Close();
         }
 
-        public void func_10308()
-        {
-            t.Close();
-            FileStream fs = File.Create(s);
-            fs.Close();
-
-        }
-
         public String func_11984(int top_po)
         {
             t.Close();
